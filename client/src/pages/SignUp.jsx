@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Label, TextInput, Button, Spinner } from 'flowbite-react'
+import { Alert } from 'flowbite-react';
+
+
 
 export const SignUp = () => {
 
@@ -36,6 +39,7 @@ export const SignUp = () => {
       const data = await res.json();
       
       if(data.success === false) {
+        setLoading(false);
         return setErrorMessage(data.message);
       }
 
@@ -53,6 +57,7 @@ export const SignUp = () => {
   };
 
   console.log(formData);
+  console.log(errorMessage);
 
   return (
     <div className='min-h-screen mt-20'>
@@ -102,7 +107,7 @@ export const SignUp = () => {
               <Label value="Your password"/>
               <TextInput 
                 type='password'
-                placeholder='Password'
+                placeholder='********'
                 id='password'
                 onChange={handleChange}
               />
@@ -134,6 +139,13 @@ export const SignUp = () => {
                 Sign In
               </Link>
              </div>
+
+             {errorMessage && (
+              <Alert className="mt-5" color="failure">
+                {errorMessage}
+              </Alert>
+             )}
+
           </div>
         </div>
     </div>
